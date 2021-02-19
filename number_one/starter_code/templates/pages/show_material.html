@@ -1,0 +1,53 @@
+{% extends 'layouts/main.html' %}
+{% block title %}material Search{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-6">
+		<h1 class="monospace">
+			{{ material.name }}
+		</h1>
+		<p class="subtitle">
+			ID: {{ material.id }}
+		</p>
+		<p>
+			<i class="fas fa-globe-americas"></i> {{ material.city }}, {{ material.state }}
+		</p>
+		<p>
+			<i class="fas fa-map-marker"></i> {% if material.address %}{{ material.address }}{% else %}No Address{% endif %}
+		</p>
+		<p>
+			<i class="fas fa-phone-alt"></i> {% if material.phone %}{{ material.phone }}{% else %}No Phone{% endif %}
+		</p>
+		<form>
+			<input type="submit"
+				   value="Request Material"
+				   class="btn btn-outline-primary mr-1"
+				   formmethod="DELETE"
+				   formaction="{{ url_for('delete_material', material_id=material.id) }}">
+		</form>
+	</div>
+	<div class="col-sm-6">
+		<img class="mySlides" src="{{ url_for('static', filename='img/'+material.material+'.jpg') }}">
+		<img class="mySlides" src="{{ url_for('static', filename='img/front-splash.jpg') }}">
+		<button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>	
+		<button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
+		<script>
+		var slideIndex = 1;
+		showDivs(slideIndex);
+		function plusDivs(n) {
+			showDivs(slideIndex += n);
+		}
+		function showDivs(n) {
+			var i;
+			var x = document.getElementsByClassName("mySlides");
+			if (n > x.length) {slideIndex = 1}
+			if (n < 1) {slideIndex = x.length} ;
+			for (i = 0; i < x.length; i++) {
+				x[i].style.display = "none";
+			}
+			x[slideIndex-1].style.display = "block";
+		}
+		</script>
+	</div>
+</div>
+{% endblock %}
